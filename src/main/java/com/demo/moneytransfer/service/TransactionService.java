@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
 
 @Service
 public class TransactionService {
@@ -57,7 +58,16 @@ public class TransactionService {
     }
 
     public List<Transaction> getTransactions(String username) {
-        // Get all transactions where the customer is the sender
-        return transactionRepository.findBySenderUsername(username);
+        List<Transaction> sentTransactions = transactionRepository.findBySenderUsername(username);
+
+        // Fetch transactions where the user is the receiver
+        List<Transaction> receivedTransactions = transactionRepository.findByReceiverUsername(username);
+
+        // Combine both lists into one
+        List<Transaction> allTransactions = new ArrayList<>();
+        allTransactions.addAll(sentTransactions);
+        allTransactions.addAll(receivedTransactions);
+
+        return allTransactions;
     }
 }

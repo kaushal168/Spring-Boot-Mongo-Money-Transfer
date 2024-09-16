@@ -16,6 +16,9 @@ public class AuthService {
     private BCryptPasswordEncoder passwordEncoder;
 
     public Customer register(Customer customer) {
+        if (customerRepository.findByUsername(customer.getUsername()) != null) {
+            throw new RuntimeException("Username already exists. Please choose a different username.");
+        }
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         return customerRepository.save(customer);
     }
@@ -26,7 +29,9 @@ public class AuthService {
             System.out.println("User Found");
             return customer;
         }
-        System.out.println("User Not Found");
-        return null;
+        else{
+            System.out.println("User Not Found");
+            throw new RuntimeException("Invalid username or password.");
+        }
     }
 }

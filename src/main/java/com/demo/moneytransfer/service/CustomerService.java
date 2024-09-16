@@ -12,19 +12,20 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    public Customer getCustomerById(String customerId) {
-        return customerRepository.findById(customerId).orElse(null);
+    public Customer getCustomerByUsername(String username) {
+        return customerRepository.findByUsername(username);
     }
 
     public Customer createCustomer(Customer customer) {
         return customerRepository.save(customer);
     }
 
-    public Customer updateCustomer(Customer customer) {
-        return customerRepository.save(customer);
-    }
-
-    public void deleteCustomer(String customerId) {
-        customerRepository.deleteById(customerId);
-    }
+//    public void deleteCustomerByUsername(String username) {
+//        Customer customer = customerRepository.findByUsername(username);
+//        if (customer != null) {
+//            customerRepository.delete(customer);
+//        } else {
+//            throw new RuntimeException("Customer Username not found.");
+//        }
+//    }
 }

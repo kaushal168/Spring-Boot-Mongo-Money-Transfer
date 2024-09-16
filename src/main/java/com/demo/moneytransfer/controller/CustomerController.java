@@ -14,9 +14,9 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping("/{id}")
-    public Customer getCustomerById(@PathVariable String id) {
-        return customerService.getCustomerById(id);
+    @GetMapping("/username/{username}")
+    public Customer getCustomerByUsername(@PathVariable String username) {
+        return customerService.getCustomerByUsername(username);
     }
 
     @PostMapping("/create")
@@ -29,13 +29,13 @@ public class CustomerController {
         return customerService.createCustomer(customer);
     }
 
-    @PutMapping("/update")
-    public Customer updateCustomer(@RequestBody Customer customer) {
-        return customerService.updateCustomer(customer);
-    }
+//    @PutMapping("/update")
+//    public Customer updateCustomer(@RequestBody Customer customer) {
+//        return customerService.updateCustomer(customer);
+//    }
 
-    @DeleteMapping("/delete/{id}")
-    public void deleteCustomer(@PathVariable String id) {
-        customerService.deleteCustomer(id);
-    }
+//    @DeleteMapping("/delete/{username}")
+//    public void deleteCustomer(@PathVariable String username) {
+//        customerService.deleteCustomerByUsername(username);
+//    }
 }

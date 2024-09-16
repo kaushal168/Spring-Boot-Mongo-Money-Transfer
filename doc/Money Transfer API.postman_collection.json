@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "1ae2d35b-a0c1-473b-8146-e0e90bf8b9f8",
 		"name": "Money Transfer API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "17050624"
 	},
 	"item": [
@@ -18,9 +18,20 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"user1\",\n    \"password\": \"pass1\",\n    \"accountBalance\": 1000.0\n}"
+					"raw": "{\n    \"username\": \"user1\",\n    \"password\": \"pass1\",\n    \"accountBalance\": 2000.0\n}"
 				},
-				"url": "http://localhost:8080/auth/register"
+				"url": {
+					"raw": "http://localhost:8080/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
 			},
 			"response": []
 		},
@@ -68,10 +79,18 @@
 			"request": {
 				"auth": {
 					"type": "basic",
-					"basic": {
-						"password": "pass1",
-						"username": "user1"
-					}
+					"basic": [
+						{
+							"key": "password",
+							"value": "pass2",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "user2",
+							"type": "string"
+						}
+					]
 				},
 				"method": "POST",
 				"header": [
@@ -82,9 +101,85 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"senderUsername\": \"user1\",\n    \"receiverUsername\": \"user3\",\n    \"amount\": 100.0\n}"
+					"raw": "{\n    \"senderUsername\": \"user1\",\n    \"receiverUsername\": \"user2\",\n    \"amount\": 100.0\n}"
 				},
-				"url": "http://localhost:8080/transactions/transfer"
+				"url": {
+					"raw": "http://localhost:8080/transactions/transfer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transactions",
+						"transfer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transaction History",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "pass2",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "user2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/transactions/history/{username}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transactions",
+						"history",
+						"{username}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer Details",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/customers/username/{username}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers",
+						"username",
+						"{username}"
+					]
+				}
 			},
 			"response": []
 		}
