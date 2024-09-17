@@ -18,7 +18,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"user1\",\n    \"password\": \"pass1\",\n    \"accountBalance\": 2000.0\n}"
+					"raw": "{\n    \"username\": \"user7\",\n    \"password\": \"pass7\",\n    \"accountBalance\": 2000.0\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/auth/register",
@@ -101,7 +101,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"senderUsername\": \"user1\",\n    \"receiverUsername\": \"user2\",\n    \"amount\": 100.0\n}"
+					"raw": "{\n    \"senderUsername\": \"user1\",\n    \"receiverUsername\": \"user5\",\n    \"amount\": 1500.0\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/transactions/transfer",
@@ -144,7 +144,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/transactions/history/{username}",
+					"raw": "http://localhost:8080/transactions/history/:username",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -153,7 +153,13 @@
 					"path": [
 						"transactions",
 						"history",
-						"{username}"
+						":username"
+					],
+					"variable": [
+						{
+							"key": "username",
+							"value": "user1"
+						}
 					]
 				}
 			},
@@ -168,7 +174,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/customers/username/{username}",
+					"raw": "http://localhost:8080/customers/username/:username",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -177,7 +183,62 @@
 					"path": [
 						"customers",
 						"username",
-						"{username}"
+						":username"
+					],
+					"variable": [
+						{
+							"key": "username",
+							"value": "user1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Password",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "pass2",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "user2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/customers/update-password?username=user1&oldPassword=pass1&newPassword=passnew",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers",
+						"update-password"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "user1"
+						},
+						{
+							"key": "oldPassword",
+							"value": "pass1"
+						},
+						{
+							"key": "newPassword",
+							"value": "passnew"
+						}
 					]
 				}
 			},

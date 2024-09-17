@@ -5,6 +5,8 @@ import com.demo.moneytransfer.dto.CustomerDTO;
 import com.demo.moneytransfer.model.Customer;
 import com.demo.moneytransfer.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,6 +29,20 @@ public class CustomerController {
         customer.setPassword((String) customerDTO.getPassword());
         customer.setAccountBalance((double) customerDTO.getAccountBalance());
         return customerService.createCustomer(customer);
+    }
+
+    @PutMapping("/update-password")
+    public ResponseEntity<String> updatePassword(
+            @RequestParam String username,
+            @RequestParam String oldPassword,
+            @RequestParam String newPassword) {
+
+        try {
+            customerService.updatePassword(username, oldPassword, newPassword);
+            return new ResponseEntity<>("Password updated successfully!", HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
 //    @PutMapping("/update")
