@@ -18,7 +18,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"user7\",\n    \"password\": \"pass7\",\n    \"accountBalance\": 2000.0\n}"
+					"raw": "{\n    \"username\": \"user1\",\n    \"password\": \"pass1\",\n    \"name\": \"John Doe\",\n    \"email\": \"user1@gmail.com\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/auth/register",
@@ -75,6 +75,47 @@
 			"response": []
 		},
 		{
+			"name": "Create Bank Account",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "pass1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "user1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/customers/create-account?username=user1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers",
+						"create-account"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "user1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Transfer Funds",
 			"request": {
 				"auth": {
@@ -101,7 +142,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"senderUsername\": \"user1\",\n    \"receiverUsername\": \"user5\",\n    \"amount\": 1500.0\n}"
+					"raw": "{\n    \"senderUsername\": \"user1\",\n    \"senderAccountNumber\": \"100001\",\n    \"senderPassword\": \"pass1\",\n    \"receiverUsername\": \"user2\",\n    \"receiverAccountNumber\": \"100002\",\n    \"amount\": 100.0\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/transactions/transfer",

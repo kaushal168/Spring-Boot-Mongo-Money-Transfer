@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface TransactionRepository extends MongoRepository<Transaction, String> {
     List<Transaction> findBySenderUsername(String senderUsername);
-    List<Transaction> findByReceiverUsername(String receiverUsername);  // Add this method
+    List<Transaction> findByReceiverUsername(String receiverUsername);
 }

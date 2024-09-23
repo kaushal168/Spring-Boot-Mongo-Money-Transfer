@@ -5,10 +5,10 @@ import java.util.Date;
 public class TransactionDTO {
     private String senderUsername;
     private String receiverUsername;
+    private String senderPassword;
     private double amount;
-    private Date timestamp;
-
-    // Getters and Setters
+    private String senderAccountNumber;
+    private String receiverAccountNumber;
 
     public String getSenderUsername() {
         return senderUsername;
@@ -26,6 +26,14 @@ public class TransactionDTO {
         this.receiverUsername = receiverUsername;
     }
 
+    public String getSenderPassword() {
+        return senderPassword;
+    }
+
+    public void setSenderPassword(String senderPassword) {
+        this.senderPassword = senderPassword;
+    }
+
     public double getAmount() {
         return amount;
     }
@@ -34,11 +42,19 @@ public class TransactionDTO {
         this.amount = amount;
     }
 
-    public Date getTimestamp() {
-        return timestamp;
+    public String getSenderAccountNumber() {
+        return senderAccountNumber;
     }
 
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
+    public void setSenderAccountNumber(String senderAccountNumber) {
+        this.senderAccountNumber = senderAccountNumber;
+    }
+
+    public String getReceiverAccountNumber() {
+        return receiverAccountNumber;
+    }
+
+    public void setReceiverAccountNumber(String receiverAccountNumber) {
+        this.receiverAccountNumber = receiverAccountNumber;
     }
 }

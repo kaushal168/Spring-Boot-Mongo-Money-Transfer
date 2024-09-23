@@ -4,6 +4,7 @@ package com.demo.moneytransfer.controller;
 import com.demo.moneytransfer.dto.CustomerDTO;
 import com.demo.moneytransfer.model.Customer;
 import com.demo.moneytransfer.service.AuthService;
+import com.demo.moneytransfer.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,14 +15,23 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    @Autowired
+    private CustomerService customerService;
+
     @PostMapping("/register")
     public Customer register(@RequestBody CustomerDTO customerDTO) {
-        System.out.println("Account Balance received: " + customerDTO.getAccountBalance()); // Debug log
         Customer customer = new Customer();
         customer.setUsername((String) customerDTO.getUsername());
         customer.setPassword((String) customerDTO.getPassword());
-        customer.setAccountBalance((double) customerDTO.getAccountBalance());
-        return authService.register(customer);
+        customer.setName((String) customerDTO.getName());
+        customer.setEmail((String) customerDTO.getEmail());
+
+        // Call the service to register the user
+        Customer registeredCustomer = authService.register(customer);
+
+        // Create a default account for the customer after registration
+        registeredCustomer = customerService.createNewAccount(registeredCustomer.getUsername());
+        return registeredCustomer;
     }
 
     @PostMapping("/login")

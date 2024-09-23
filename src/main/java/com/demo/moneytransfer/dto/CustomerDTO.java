@@ -1,10 +1,14 @@
 // File: CustomerDTO.java
 package com.demo.moneytransfer.dto;
 
+import java.util.List;
+
 public class CustomerDTO {
     private String username;
     private String password;
-    private double accountBalance;
+    private String name;
+    private String email;
+    private List<AccountDTO> accounts;  // List of accounts
 
     public String getUsername() {
         return username;
@@ -22,11 +26,27 @@ public class CustomerDTO {
         this.password = password;
     }
 
-    public double getAccountBalance() {
-        return accountBalance;
+    public String getName() {
+        return name;
     }
 
-    public void setAccountBalance(double accountBalance) {
-        this.accountBalance = accountBalance;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public List<AccountDTO> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<AccountDTO> accounts) {
+        this.accounts = accounts;
     }
 }

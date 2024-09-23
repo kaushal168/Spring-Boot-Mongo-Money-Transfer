@@ -21,14 +21,9 @@ public class CustomerController {
         return customerService.getCustomerByUsername(username);
     }
 
-    @PostMapping("/create")
-    public Customer createCustomer(@RequestBody CustomerDTO customerDTO) {
-        System.out.println("Account Balance received: " + customerDTO.getAccountBalance()); // Debug log
-        Customer customer = new Customer();
-        customer.setUsername((String) customerDTO.getUsername());
-        customer.setPassword((String) customerDTO.getPassword());
-        customer.setAccountBalance((double) customerDTO.getAccountBalance());
-        return customerService.createCustomer(customer);
+    @PostMapping("/create-account")
+    public Customer createNewAccount(@RequestParam String username) {
+        return customerService.createNewAccount(username);
     }
 
     @PutMapping("/update-password")
@@ -44,14 +39,4 @@ public class CustomerController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-
-//    @PutMapping("/update")
-//    public Customer updateCustomer(@RequestBody Customer customer) {
-//        return customerService.updateCustomer(customer);
-//    }
-
-//    @DeleteMapping("/delete/{username}")
-//    public void deleteCustomer(@PathVariable String username) {
-//        customerService.deleteCustomerByUsername(username);
-//    }
 }

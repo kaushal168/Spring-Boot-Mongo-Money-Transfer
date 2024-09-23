@@ -1,12 +1,19 @@
 // File: CustomerService.java
 package com.demo.moneytransfer.service;
 
+import com.demo.moneytransfer.model.Account;
+import com.demo.moneytransfer.model.AccountNumber;
 import com.demo.moneytransfer.model.Customer;
+import com.demo.moneytransfer.repository.AccountNumberRepository;
 import com.demo.moneytransfer.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerService {
@@ -14,6 +21,9 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    @Autowired
+    private AccountNumberRepository accountNumberRepository;
 
     public Customer getCustomerByUsername(String username) {
         return customerRepository.findByUsername(username);
@@ -40,12 +50,36 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-    //  public void deleteCustomerByUsername(String username) {
-//        Customer customer = customerRepository.findByUsername(username);
-//        if (customer != null) {
-//            customerRepository.delete(customer);
-//        } else {
-//            throw new RuntimeException("Customer Username not found.");
-//        }
-//    }
+    // Create a new account for a user
+    public Customer createNewAccount(String username) {
+        Customer customer = customerRepository.findByUsername(username);
+        if (customer == null) {
+            throw new RuntimeException("Customer not found");
+        }
+
+        // Find an available account number
+        Optional<AccountNumber> optionalAccountNumber = accountNumberRepository.findFirstByAssignedFalse();
+        if (optionalAccountNumber.isEmpty()) {
+            throw new RuntimeException("No available account numbers.");
+        }
+
+        // Assign the account number
+        AccountNumber accountNumber = optionalAccountNumber.get();
+        accountNumber.setAssigned(true); // Mark as assigned
+        accountNumberRepository.save(accountNumber); // Persist the change
+
+        // Create a new account and assign an account number
+        Account newAccount = new Account();
+        newAccount.setAccountNumber(accountNumber.getAccountNumber());
+        newAccount.setBalance(1000.0);
+
+        // Add the new account to the customer's account list
+        List<Account> accounts = customer.getAccounts();
+        if(accounts == null) {
+            accounts = new ArrayList<>();
+        }
+        accounts.add(newAccount);
+        customer.setAccounts(accounts);
+        return customerRepository.save(customer);
+    }
 }
