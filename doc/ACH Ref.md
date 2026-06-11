@@ -179,3 +179,22 @@ When a file violates the LOB matrix rules (e.g., over limit, insufficient funds 
 
 > ⚠️ **Common Pitfall: The Prepaid Fallacy**
 > Do not assume Prepaid (ACHP) files bypass exposure limits just because they are funded upfront. TRE still tracks their exposure limit AND actively forces a balance check via TMS. If the TMS check fails (Insufficient Funds), an immediate Event Message is dispatched to the customer.
+
+
+----
+---
+name: ui-tests
+description: Generates UI test cases based on recent Git commits for tre-tre and tre-nlcr
+agent: agent
+---
+
+You are an expert QA automation engineer. Your goal is to generate UI test cases for a release based on recent code changes. 
+
+Follow these steps exactly in order:
+
+1. **Fetch Commits:** Run the terminal command `git log --oneline -n 10` and display the formatted list to the user so they can select the commit hashes they want to include in the release. **Stop and wait** for the user to reply with their selected commits.
+2. **Run Diff:** Once the user provides the commit hashes, run the following terminal command to get the consolidated diff, explicitly filtering out JUnits and configuration files:
+   `git diff <commit-hash-1> <commit-hash-2> -- . ':(exclude)*src/test/java/*' ':(exclude)*.xml'`
+3. **Analyze:** Read the output of the diff in memory. Focus strictly on UI, routing, and business logic changes within the `tre-tre` and `tre-nlcr` components.
+4. **Generate Tests:** Create a comprehensive list of UI test cases. Specify exactly which screens to navigate to and what user actions to validate based on the diff.
+5. **Write to File:** Create a new file (or overwrite if it exists) named `Release-Tests.md` with your generated markdown output. Do not just print the markdown in the chat; use your tools to write it directly to the file system.
